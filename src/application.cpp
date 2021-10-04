@@ -45,13 +45,24 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	camera->setPerspective(45.f,window_width/(float)window_height,0.1f,10000.f); //set the projection, we want to be perspective
 
 	{
+		// HELMET MODEL
 		StandardMaterial* mat = new StandardMaterial();
+		Texture* albedo = Texture::Get("data/models/helmet/albedo.png");
+		mat->texture = albedo;
 		SceneNode* node = new SceneNode("Visible node");
-		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		node->mesh = Mesh::Get("data/models/helmet/helmet.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
 		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
 		node_list.push_back(node);
+
+		// LIGHT
+		Light* light = new Light("first light");
+		light->ambient = Vector3(1.0, 0.0, 0.0);
+		light->specular = Vector3(1.0, 1.0, 1.0);
+		light->difuse = Vector3(1.0, 1.0, 1.0);
+		light->position = Vector3(-10.0 , 10.0, 10.0);
+
 	}
 	
 	//hide the cursor

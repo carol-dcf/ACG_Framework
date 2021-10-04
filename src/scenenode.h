@@ -8,7 +8,20 @@
 #include "camera.h"
 #include "material.h"
 
-class Light;
+class Light {
+public:
+
+	Light(std::string name);
+	~Light();
+
+	Vector3 ambient;
+	Vector3 difuse;
+	Vector3 specular;
+	Vector3 position;
+
+	std::string name;
+
+};
 
 class SceneNode {
 public:

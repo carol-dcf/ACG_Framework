@@ -65,3 +65,8 @@ void SceneNode::renderInMenu()
 		ImGui::TreePop();
 	}
 }
+
+Light::Light(std::string name)
+{
+	this->name = name;
+}
