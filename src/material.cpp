@@ -25,6 +25,15 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_exposure", Application::instance->scene_exposure);
+	/*shader->setUniform("u_ka", );
+	shader->setUniform("u_kd", );
+	shader->setUniform("u_ks", );
+	shader->setUniform("u_alpha", );*/
+
+	shader->setUniform("u_ia", Application::instance->ambient_light);
+	//shader->setUniform("u_id", );
+	//shader->setUniform("u_is", );
+
 
 	if (texture)
 		shader->setUniform("u_texture", texture);
@@ -81,4 +90,24 @@ void WireframeMaterial::render(Mesh* mesh, Matrix44 model, Camera * camera)
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+}
+
+PhongMaterial::PhongMaterial()
+{
+}
+
+PhongMaterial::~PhongMaterial()
+{
+}
+
+void PhongMaterial::setUniforms(Camera* camera, Matrix44 model)
+{
+}
+
+void PhongMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
+{
+}
+
+void PhongMaterial::renderInMenu()
+{
 }

@@ -30,6 +30,18 @@ public:
 	void renderInMenu();
 };
 
+class PhongMaterial : public Material {
+public: 
+
+	PhongMaterial();
+	~PhongMaterial();
+	
+	void setUniforms(Camera* camera, Matrix44 model);
+	void render(Mesh* mesh, Matrix44 model, Camera* camera);
+	void renderInMenu();
+	
+};
+
 class WireframeMaterial : public StandardMaterial {
 public:
 

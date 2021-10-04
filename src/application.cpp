@@ -34,6 +34,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	mouse_locked = false;
 	scene_exposure = 1;
 	output = 0;
+	ambient_light = Vector3(1.0, 0.6, 0.3);
 
 	// OpenGL flags
 	glEnable( GL_CULL_FACE ); //render both sides of every triangle
@@ -58,10 +59,10 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 		// LIGHT
 		Light* light = new Light("first light");
-		light->ambient = Vector3(1.0, 0.0, 0.0);
 		light->specular = Vector3(1.0, 1.0, 1.0);
 		light->difuse = Vector3(1.0, 1.0, 1.0);
 		light->position = Vector3(-10.0 , 10.0, 10.0);
+		light_list.push_back(light);
 
 	}
 	

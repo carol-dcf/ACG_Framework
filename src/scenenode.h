@@ -13,14 +13,14 @@ public:
 
 	Light(std::string name);
 	~Light();
-
-	Vector3 ambient;
+	
 	Vector3 difuse;
 	Vector3 specular;
 	Vector3 position;
 
 	std::string name;
 
+	virtual void renderInMenu();
 };
 
 class SceneNode {

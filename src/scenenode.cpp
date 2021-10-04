@@ -70,3 +70,9 @@ Light::Light(std::string name)
 {
 	this->name = name;
 }
+
+void Light::renderInMenu()
+{
+	//ImGui::DragFloat3("Position", matrixTranslation, 0.1f);
+
+}

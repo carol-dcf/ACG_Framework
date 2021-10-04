@@ -102,6 +102,7 @@ void renderGUI(SDL_Window* window, Application * game)
 		if (ImGui::TreeNode("Scene")) {
 			ImGui::DragFloat("Exposure", &Application::instance->scene_exposure, 0.01f,-2, 2);
 			ImGui::Combo("Output", &Application::instance->output, "COMPLETE\0ALBEDO\0ROUGHNESS\0\METALNESS\0NORMALS\0");
+			ImGui::ColorEdit3("Ambient Light", Application::instance->ambient_light.v);
 			ImGui::TreePop();
 		}
 
@@ -119,6 +120,17 @@ void renderGUI(SDL_Window* window, Application * game)
 			{
 				ss << count;
 				if ( ImGui::TreeNode(node->name.c_str()) )
+				{
+					node->renderInMenu();
+					ImGui::TreePop();
+				}
+				++count;
+				ss.str("");
+			}
+			for (auto& node : game->light_list)
+			{
+				ss << count;
+				if (ImGui::TreeNode(node->name.c_str()))
 				{
 					node->renderInMenu();
 					ImGui::TreePop();
