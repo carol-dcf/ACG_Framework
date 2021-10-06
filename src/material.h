@@ -33,6 +33,12 @@ public:
 class PhongMaterial : public Material {
 public: 
 
+	Texture* normal_texture = NULL;
+	Vector3 k_ambient;
+	Vector3 k_difuse;
+	Vector3 k_specular;
+	float k_alpha;
+
 	PhongMaterial();
 	~PhongMaterial();
 	

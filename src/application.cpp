@@ -47,9 +47,15 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		// HELMET MODEL
-		StandardMaterial* mat = new StandardMaterial();
+		PhongMaterial* mat = new PhongMaterial();
 		Texture* albedo = Texture::Get("data/models/helmet/albedo.png");
+		Texture* normal = Texture::Get("data/models/helmet/normal.png");
 		mat->texture = albedo;
+		mat->normal_texture = normal;
+		mat->k_alpha = 5.0;
+		mat->k_ambient = Vector3(1.0, 1.0, 1.0);
+		mat->k_difuse = Vector3(1.0, 1.0, 1.0);
+		mat->k_specular = Vector3(1.0, 1.0, 1.0);
 		SceneNode* node = new SceneNode("Visible node");
 		node->mesh = Mesh::Get("data/models/helmet/helmet.obj.mbin");
 		//node->model.scale(5, 5, 5);
