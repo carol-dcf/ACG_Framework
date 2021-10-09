@@ -21,6 +21,7 @@ public:
 	std::string name;
 
 	virtual void renderInMenu();
+	void setUniforms(Shader* shader);
 };
 
 class SceneNode {

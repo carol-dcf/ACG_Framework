@@ -49,9 +49,9 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		// HELMET MODEL
 		PhongMaterial* mat = new PhongMaterial();
 		Texture* albedo = Texture::Get("data/models/helmet/albedo.png");
-		Texture* normal = Texture::Get("data/models/helmet/normal.png");
+		//Texture* normal = Texture::Get("data/models/helmet/normal.png");
 		mat->texture = albedo;
-		mat->normal_texture = normal;
+		//mat->normal_texture = normal;
 		mat->k_alpha = 5.0;
 		mat->k_ambient = Vector3(1.0, 1.0, 1.0);
 		mat->k_difuse = Vector3(1.0, 1.0, 1.0);
@@ -60,16 +60,48 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		node->mesh = Mesh::Get("data/models/helmet/helmet.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
-		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/phong.fs");
 		node_list.push_back(node);
 
-		// LIGHT
-		Light* light = new Light("first light");
-		light->specular = Vector3(1.0, 1.0, 1.0);
-		light->difuse = Vector3(1.0, 1.0, 1.0);
-		light->position = Vector3(-10.0 , 10.0, 10.0);
-		light_list.push_back(light);
+		// LIGHT 1
+		Light* light_1 = new Light("first light");
+		light_1->specular = Vector3(1.0, 1.0, 1.0);
+		light_1->difuse = Vector3(1.0, 1.0, 1.0);
+		light_1->position = Vector3(-50.0 , 50.0, 50.0);
+		light_list.push_back(light_1);
 
+		// LIGHT 2
+		Light* light_2 = new Light("second light");
+		light_2->specular = Vector3(1.0, 0.0, 0.0);
+		light_2->difuse = Vector3(1.0, 1.0, 1.0);
+		light_2->position = Vector3(50.0, 50.0, 50.0);
+		light_list.push_back(light_2);
+
+		// SKYBOX
+		skybox = new SceneNode("Skybox node");
+		skybox->mesh = Mesh::Get("data/meshes/box.ASE.mbin");
+		Matrix44 sky_model;
+		sky_model.translate(camera->eye.x, camera->eye.y, camera->eye.z);
+		sky_model.scale(10.0, 10.0, 10.0);
+		skybox->model = sky_model;
+		// li assignem un material
+		SkyboxMaterial* mat_skybox = new SkyboxMaterial();	
+		// li assignem una textura
+		Texture* skybox_texture = new Texture();    
+		skybox_texture->cubemapFromImages("data/environments/city");
+		mat_skybox->texture = skybox_texture;
+		mat_skybox->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/skybox.fs");
+		skybox->material = mat_skybox;		
+		//node_list.push_back(skybox);
+
+		// BALL
+		SceneNode* ref_node = new SceneNode("Reflective Ball");
+		ReflectiveMaterial* ref_mat = new ReflectiveMaterial();
+		ref_mat->texture = skybox_texture;
+		ref_node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		//ref_node->model.scale(5, 5, 5);
+		ref_node->material = ref_mat;
+		node_list.push_back(ref_node);
 	}
 	
 	//hide the cursor
@@ -88,6 +120,9 @@ void Application::render(void)
 	//set the camera as default
 	camera->enable();
 
+	//render skybox
+	glDisable(GL_DEPTH_TEST);
+	skybox->material->render(skybox->mesh, skybox->model, camera);
 	//set flags
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);

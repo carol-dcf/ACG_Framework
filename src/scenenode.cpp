@@ -76,3 +76,11 @@ void Light::renderInMenu()
 	//ImGui::DragFloat3("Position", matrixTranslation, 0.1f);
 
 }
+
+void Light::setUniforms(Shader* shader)
+{
+	shader->setUniform("u_id", difuse);
+	shader->setUniform("u_is", specular);
+	shader->setUniform("u_light_pos", position);
+
+}

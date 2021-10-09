@@ -34,6 +34,7 @@ class PhongMaterial : public Material {
 public: 
 
 	Texture* normal_texture = NULL;
+	bool use_normal = false;
 	Vector3 k_ambient;
 	Vector3 k_difuse;
 	Vector3 k_specular;
@@ -55,6 +56,28 @@ public:
 	~WireframeMaterial();
 
 	void render(Mesh* mesh, Matrix44 model, Camera * camera);
+};
+
+class SkyboxMaterial : public Material {
+public:
+
+	SkyboxMaterial();
+	~SkyboxMaterial();
+
+	void setUniforms(Camera* camera, Matrix44 model);
+	void render(Mesh* mesh, Matrix44 model, Camera* camera);
+	void renderInMenu();
+};
+
+class ReflectiveMaterial : public Material {
+public:
+
+	ReflectiveMaterial();
+	~ReflectiveMaterial();
+
+	void setUniforms(Camera* camera, Matrix44 model);
+	void render(Mesh* mesh, Matrix44 model, Camera* camera);
+	void renderInMenu();
 };
 
 #endif
