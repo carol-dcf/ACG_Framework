@@ -260,6 +260,12 @@ void Matrix44::scale(float x, float y, float z)
 	*this = S * *this;
 }
 
+void Matrix44::modifyScale(float x, float y, float z)
+{
+	m[0] = x;
+	m[5] = y;
+	m[10] = z;
+}
 void Matrix44::setScale(float x, float y, float z)
 {
 	setIdentity();

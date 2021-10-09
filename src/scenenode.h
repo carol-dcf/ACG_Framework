@@ -44,4 +44,14 @@ public:
 	virtual void renderInMenu();
 };
 
+class SkyboxNode : public SceneNode{
+public:
+
+	SkyboxNode();
+	SkyboxNode(const char* name);
+	~SkyboxNode();
+
+	virtual void renderInMenu();
+};
+
 #endif

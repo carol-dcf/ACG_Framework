@@ -6,7 +6,7 @@
 StandardMaterial::StandardMaterial()
 {
 	color = vec4(1.f, 1.f, 1.f, 1.f);
-	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
 }
 
 StandardMaterial::~StandardMaterial()
@@ -51,6 +51,7 @@ void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 void StandardMaterial::renderInMenu()
 {
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
+
 }
 
 WireframeMaterial::WireframeMaterial()
@@ -252,5 +253,4 @@ void ReflectiveMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 
 void ReflectiveMaterial::renderInMenu()
 {
-	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
 }
